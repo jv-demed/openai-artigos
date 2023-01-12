@@ -34,7 +34,7 @@ export function ArticlesList(){
     return(
         <ArticlesListStyled className='container'>
             <div className="title">
-                <h2>Artigos: </h2>
+                <h2>Resumos: </h2>
                 <input 
                     type="text" 
                     placeholder='PMID' 
@@ -69,7 +69,6 @@ export function ArticlesList(){
                             )
                         }
                     })}
-                    {console.log(articles)}
                 </tbody>
             </table>
         </ArticlesListStyled>
