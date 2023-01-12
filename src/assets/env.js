@@ -1,7 +1,5 @@
 export const readTokenDato = '09270f8d31397fb81a4b17cf647a73';
 export const masterTokenDato = 'ad3ed88b13a766afa73256efa9ad94';
-//export const apiKeyOpenai = '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'; outra conta
-//export const apiKeyOpenai = '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'; minha conta
 export const apiKeyOpenai = '';
 export const questionId = '1147666';
 export const articleId = '1161173';
