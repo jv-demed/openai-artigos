@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import { useDownloadExcel } from 'react-export-table-to-excel';
 import { getInfo } from '../infra/getInfo';
 
 const ArticlesListStyled = styled.div`
@@ -12,6 +13,13 @@ const ArticlesListStyled = styled.div`
     .title{
         display: flex;
         justify-content: space-between;
+        .utils{
+            display: flex;
+            gap: 10px;
+            button{
+                padding: 0 4px;
+            }
+        }
     }
     td{
         border: 1px solid black;
@@ -20,13 +28,23 @@ const ArticlesListStyled = styled.div`
 
 export function ArticlesList(){
 
+    const tableRef = useRef(null);
     const [articles, setArticles] = useState([]);
     const [pmid, setPmid] = useState('');
+
+    const { onDownload } = useDownloadExcel({
+        currentTableRef: tableRef.current,
+        filename: 'Resumos',
+        sheet: 'Resumos'
+    })
 
     useEffect(() => {
         getInfo({
             filter: {
                 type: 'article',
+            },
+            page: {
+                limit: 500
             }
         }).then(res => setArticles(res));
     }, []);
@@ -34,14 +52,17 @@ export function ArticlesList(){
     return(
         <ArticlesListStyled className='container'>
             <div className="title">
-                <h2>Resumos: </h2>
-                <input 
-                    type="text" 
-                    placeholder='PMID' 
-                    onChange={(e) => setPmid(e.target.value)} 
-                />
+                <h2>Resumos: {articles.length}</h2>
+                <div className='utils'>
+                    <button onClick={onDownload}>Export</button>
+                    <input 
+                        type="text" 
+                        placeholder='PMID' 
+                        onChange={(e) => setPmid(e.target.value)} 
+                    />
+                </div>
             </div>
-            <table>
+            <table ref={tableRef}>
                 <tbody>
                     <tr>
                         <th>PMID</th>

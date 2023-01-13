@@ -20,24 +20,34 @@ const ArticlesInputStyled = styled.form`
 
 export function ArticlesInput(){
 
-    const [text, setText] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [text, setText] = useState('');
 
     return(
-        <ArticlesInputStyled className='container'
-            onSubmit={async e => {
+        <ArticlesInputStyled
+            className='container'
+            onSubmit={e => {
                 e.preventDefault();
                 setIsLoading(true);
-                const response = await fetch("/api/openai", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ articles: text.split('",\n') }),
+                const array = text.split('",\n');
+                array.map(async (art, i) => {
+                    const response = await fetch('/api/openai', {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ 
+                            art: art,
+                        }),
+                    }).then(res => res);
+                    const data = await response.json();
+                    console.log(data.result);
+                    await postCompletion(data.result).then(() => {
+                        console.log(`Resumo ${i+1} salvo com sucesso!`);
+                        setText('');
+                        setIsLoading(false);
+                    });
                 });
-                const data = await response.json();
-                await postCompletion(data.result);
-                setIsLoading(false)
             }}
         >
             <div className="title">
@@ -47,7 +57,7 @@ export function ArticlesInput(){
             <textarea value={text} onChange={(e) => {
                 setText(e.target.value);
             }} />
-            {!isLoading ?
+            {(!isLoading) ?
                 <button>Fazer Busca</button>
                 :
                 <span>loading</span>
