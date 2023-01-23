@@ -6,6 +6,6 @@ export const readTokenDato = '736c34712c401ed723c6ead893b62d';
 //export const masterTokenDato = 'cf643096d73c54de00253b76f345ee';
 //export const masterTokenDato = '846300bfd0127508168849a477ff81';
 export const masterTokenDato = 'a39920a40539d609b787fc99f7b4f1';
-export const articleId = '1234142';
+export const articleId = '1247549';
 //export const question = 'Apresente em língua portuguesa uma tabela informando os genes, os polimorfismos associados com hipertensão, a significância p, a nacionalidade da população estudada, o tamanho da amostra e a conclusão sobre os polimorfismos estudados, com o seguinte cabeçalho: PMID | DOI | gene | polimorfismo | p | População | Tamanho amostral | Conclusão';
 export const question = 'Apresente em língua portuguesa os genes, os polimorfismos associados com hipertensão, a significância p, a nacionalidade da população estudada, o tamanho da amostra e a conclusão sobre os polimorfismos estudados, organizado da seguinte forma: PMID|DOI|gene|polimorfismo|p|população|tamanho amostral|conclusão.';
